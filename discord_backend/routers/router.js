@@ -8,7 +8,8 @@ router.post( '/register', async ( req, res ) => {
     
     try {
         
-        // const { name, email } = req.body();
+        const { name, email } = req.body();
+        console.log(name,email);
         const user = new User( {
             name:'praveen2',
             email:'email.com'
