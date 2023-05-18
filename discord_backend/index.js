@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import connectDb from './config/db.js'
 import User from './models/UserModel.js';
 import router from './routers/router.js';
+import morgan from 'morgan';
 
 
 
@@ -27,36 +28,38 @@ connectDb();
 
 app.use( cors() );
 app.use( express.json() );
+app.use( morgan('tiny') );
+
 
 
 
 
 //api calls
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-} );
+// app.get('/', (req, res) => {
+//     res.send('Hello, World!');
+// } );
   
-app.get('/a',async ( req, res ) => {
+// app.get('/a',async ( req, res ) => {
     
-    try {
-        // const { name, email } = req.body();
-        const user = new User( {
-            name:'praveen',
-            email:'email.com'
-        } )
-        await user.save();
-        console.log( `user registered successfully` );
-        res.status(201).json({msg:'success'})
+//     try {
+//         // const { name, email } = req.body();
+//         const user = new User( {
+//             name:'praveen',
+//             email:'email.com'
+//         } )
+//         await user.save();
+//         console.log( `user registered successfully` );
+//         res.status(201).json({msg:'success'})
 
         
-    } catch ( error ) {
-        res.status( 400 ).json( { msg: error } );
+//     } catch ( error ) {
+//         res.status( 400 ).json( { msg: error } );
 
-        console.log( error );
-    }
-} )
-app.use( '/a', router );
+//         console.log( error );
+//     }
+// } )
+app.use( '/api/v1', router );
 
 
 
