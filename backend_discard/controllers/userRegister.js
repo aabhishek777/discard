@@ -3,11 +3,12 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 export const userRegister = async ( req, res ) => {
-    
+
     try {
-        const { name, email, password } = req.body;
+        const { userName, email, password } = req.body;
 
         const userAlreadyExist = await User.exists( { email } );
+        console.log(`userAlreadyExist :${userAlreadyExist}`);
         if ( userAlreadyExist ) {
             res.status( 409 ).json( { msg: "email already exists" } )
             return;
@@ -15,36 +16,36 @@ export const userRegister = async ( req, res ) => {
 
         const hashPassword = await bcrypt.hash( password, 10 );
         console.log( hashPassword );
-        
+
         const matched = await bcrypt.compare( password, hashPassword );
         console.log( `matched: ${matched}` );
 
         const user = new User( {
-            name,
+            userName,
             email,
             password: hashPassword,
         } );
 
         //saving to db
         const userData = await user.save();
-        
+       console.log(userData);
 
-      
+
         //generating jwt token and sending to user
         const token = await jwt.sign( {
-            name: userData.name,
+            userName: userData.userName,
             email: userData.email,
 
         },
             process.env.JWT_SECRET_KEY_JSON_WEB_TOKEN,
             { expiresIn: '48h' }
         );
-    
+
 
         res.status( 200 ).json( { msg: "registered success", token, data: userData } );
-       
 
-        
+
+
     } catch ( error ) {
         res.status( 400 ).json( { msg: error } );
 
@@ -59,48 +60,50 @@ export const getUser = async ( req, res ) => {
     }
     catch ( error ) {
         console.log( error );
-        
+
     }
 };
 
 
 export const loginUser = async ( req, res ) => {
     try {
-        const { name, password } = req.body;
+        const { UserName, password } = req.body;
 
-        const isNameExist = await User.exists( { name } );
-       
+        const isNameExist = await User.exists( { UserName } );
+
         if ( !isNameExist ) {
-            console.log(`isnaemeexitst run`);
+            console.log( `isnaemeexitst run` );
             res.status( 409 ).json( { msg: "Username not exist" } );
             return;
         }
-        const userData = await User.findOne( { name } );
-        
+        const userData = await User.findOne( { UserName } );
+
+
         const isPasswordMatched = await bcrypt.compare( password, userData.password );
-        
+        console.log( `ispasswordmatchwd : ${isPasswordMatched}` );
+
         if ( !isPasswordMatched ) {
             res.status( 409 ).json( { msg: "Username not exist" } );
             return;
-            
+
         }
         //generating jwt token and sending it
         const token = await jwt.sign( {
-            name: userData.name,
+            UserName: userData.UserName,
             email: userData.email,
 
         },
             process.env.JWT_SECRET_KEY_JSON_WEB_TOKEN,
             { expiresIn: '48h' }
         );
-        console.log(token);
+        console.log( token );
 
         res.status( 200 ).json( { msg: "login success", token, data: userData } );
-        
+
 
     } catch ( error ) {
         console.log( error );
         res.status( 400 ).json( { msg: error } );
-        
+
     }
 };

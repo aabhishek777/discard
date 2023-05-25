@@ -34,31 +34,7 @@ app.use( morgan('tiny') );
 
 
 
-//api calls
 
-// app.get('/', (req, res) => {
-//     res.send('Hello, World!');
-// } );
-  
-// app.get('/a',async ( req, res ) => {
-    
-//     try {
-//         // const { name, email } = req.body();
-//         const user = new User( {
-//             name:'praveen',
-//             email:'email.com'
-//         } )
-//         await user.save();
-//         console.log( `user registered successfully` );
-//         res.status(201).json({msg:'success'})
-
-        
-//     } catch ( error ) {
-//         res.status( 400 ).json( { msg: error } );
-
-//         console.log( error );
-//     }
-// } )
 app.use( '/api/v1', router );
 
 
