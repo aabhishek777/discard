@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+// import FriendsListItem from "./sidebar/friends/FriendsListItem";
+import FriendsList from "./friends/FriendsList";
 
 const DashboardFriends = () => {
   return (
-    <div className='dashboard__friends'>DashboardFriends</div>
-  )
-}
+    <div className="dashboard__friends">
+      <FriendsList />
+    </div>
+  );
+};
 
-export default DashboardFriends
+export default DashboardFriends;

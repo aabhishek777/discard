@@ -1,22 +1,30 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <header>
-    <div className="logo">
-      <img src="discord_logo.png" alt="Discord Logo"/>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Chat</a></li>
-        <li><a href="#">Servers</a></li>
-        <li><a href="#">Friends</a></li>
-      </ul>
-    </nav>
-  </header>
-  
-  )
-}
+      <div className="logo">
+        <img src="discord_logo.png" alt="Discord Logo" />
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <Link>Home</Link>
+          </li>
+          <li>
+            <Link>Chat</Link>
+          </li>
+          <li>
+            <Link>Servers</Link>
+          </li>
+          <li>
+            <Link>Friends</Link>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  );
+};
 
-export default Header
+export default Header;
