@@ -1,17 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import connectDb from './config/db.js'
-
-import router from './routers/router.js';
 import morgan from 'morgan';
 
-
-
-
-
 import { createServer } from 'http';
-import { Server } from 'socket.io'
+
+
+import authRouter from './routers/router.js';
+import friendInvitationRouter from './routers/friends.js';
+
+import { getSocketConnection } from './socketIOServer.js';
+import connectDb from './config/db.js'
+
+
 
 
 
@@ -24,47 +25,14 @@ const port = process.env.PORT || process.env.PORT;
 const app = express();
 
 
-
 //createing http server passing express instance
 const server = createServer( app );
 
 
-// creating socket io variable
-// const io = new Server( server, () =>
-// {
-//     cors: {
-//         origin: '*'
-//     }
-// } );
-const io = new Server( server, {
-    cors: {
-        origin: '*'
-    }
-} );
+//creating chat1 socket connection
 
+getSocketConnection( server );
 
-
-
-//creating socket instances or groups lke api
-
-io.on( 'connection', ( socket ) =>
-{
-
-    //conbnection status
-    console.log( 'connected to socket ' );
-
-
-    //creating tha chat group
-    socket.on( 'chat', ( payload ) =>
-    {
-        console.log( payload );
-        //creating emmit event
-        io.emit( 'chat', payload );
-
-    } );
-
-
-} );
 
 
 
@@ -87,7 +55,8 @@ app.use( morgan( 'tiny' ) );
 
 
 
-app.use( '/api/v1', router );
+app.use( '/api/auth', authRouter );
+app.use( 'api/friend-invitation', friendInvitationRouter );
 
 
 

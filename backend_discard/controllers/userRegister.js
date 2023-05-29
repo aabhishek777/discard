@@ -2,14 +2,17 @@ import User from "../models/UserModel.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-export const userRegister = async ( req, res ) => {
+export const userRegister = async ( req, res ) =>
+{
 
-    try {
+    try
+    {
         const { userName, email, password } = req.body;
 
         const userAlreadyExist = await User.exists( { email } );
-        console.log(`userAlreadyExist :${userAlreadyExist}`);
-        if ( userAlreadyExist ) {
+        console.log( `userAlreadyExist :${ userAlreadyExist }` );
+        if ( userAlreadyExist )
+        {
             res.status( 409 ).json( { msg: "email already exists" } )
             return;
         }
@@ -18,7 +21,7 @@ export const userRegister = async ( req, res ) => {
         console.log( hashPassword );
 
         const matched = await bcrypt.compare( password, hashPassword );
-        console.log( `matched: ${matched}` );
+        console.log( `matched: ${ matched }` );
 
         const user = new User( {
             userName,
@@ -28,7 +31,7 @@ export const userRegister = async ( req, res ) => {
 
         //saving to db
         const userData = await user.save();
-       console.log(userData);
+        console.log( userData );
 
 
         //generating jwt token and sending to user
@@ -46,32 +49,39 @@ export const userRegister = async ( req, res ) => {
 
 
 
-    } catch ( error ) {
+    } catch ( error )
+    {
         res.status( 400 ).json( { msg: error } );
 
         console.log( error );
     }
 };
 
-export const getUser = async ( req, res ) => {
-    try {
+export const getUser = async ( req, res ) =>
+{
+    try
+    {
         console.log( 'getUser fetched' );
         res.status( 400 ).json( { msg: "user not found" } );
     }
-    catch ( error ) {
+    catch ( error )
+    {
         console.log( error );
 
     }
 };
 
 
-export const loginUser = async ( req, res ) => {
-    try {
+export const loginUser = async ( req, res ) =>
+{
+    try
+    {
         const { UserName, password } = req.body;
 
         const isNameExist = await User.exists( { UserName } );
 
-        if ( !isNameExist ) {
+        if ( !isNameExist )
+        {
             console.log( `isnaemeexitst run` );
             res.status( 409 ).json( { msg: "Username not exist" } );
             return;
@@ -80,17 +90,21 @@ export const loginUser = async ( req, res ) => {
 
 
         const isPasswordMatched = await bcrypt.compare( password, userData.password );
-        console.log( `ispasswordmatchwd : ${isPasswordMatched}` );
+        console.log( `ispasswordmatchwd : ${ isPasswordMatched }` );
 
-        if ( !isPasswordMatched ) {
+        if ( !isPasswordMatched )
+        {
             res.status( 409 ).json( { msg: "Username not exist" } );
             return;
 
         }
         //generating jwt token and sending it
         const token = await jwt.sign( {
-            UserName: userData.UserName,
+            userName: userData.userName,
             email: userData.email,
+
+
+
 
         },
             process.env.JWT_SECRET_KEY_JSON_WEB_TOKEN,
@@ -101,9 +115,33 @@ export const loginUser = async ( req, res ) => {
         res.status( 200 ).json( { msg: "login success", token, data: userData } );
 
 
-    } catch ( error ) {
+    } catch ( error )
+    {
         console.log( error );
         res.status( 400 ).json( { msg: error } );
 
     }
 };
+
+
+
+export const loadUser = async ( req, res ) =>
+{
+    try
+    {
+        const userName = req.userName;
+        const userData = await User.findOne( { userName } );
+        res.status( 200 ).json( { msg: 'user is Authenticated', data: userData } );
+
+    } catch ( error )
+    {
+        res.status( 400 ), json( { msg: error } );
+        console.log( error );
+    }
+};
+
+
+
+//friend controllers
+
+

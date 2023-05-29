@@ -4,7 +4,9 @@ import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import ErrorMaterialUI from './components/ErrorMaterialUI'
-import NavDropDown from './components/dashboard/comonentsDashboard/nav/NavDropdown'
+
+import FriendsInvitation from './pages/FriendsInvitation'
+import ChatPage from './pages/ChatPage'
 
 const RouteComponents = () =>
 {
@@ -15,7 +17,7 @@ const RouteComponents = () =>
       <Route path='/register' element={ <Register /> } />
       <Route path='/error' element={ <ErrorMaterialUI /> } />
       <Route path='/' element={ <Dashboard /> } />
-      <Route path='/test' element={ <NavDropDown /> } />
+      <Route path='/test' element={ <ChatPage /> } />
     </Routes>
 
   )
