@@ -38,3 +38,21 @@ export const userLoadResponseData = createReducer( {}, ( builder ) =>
         state.userLoadResponseData = action.payload;
     } )
 } );
+
+export const groupMessageReducer = createReducer( {}, ( builder ) =>
+{
+    builder.addCase( 'groupChat', ( state, action ) =>
+    {
+        state.groupMessageData = action.payload;
+    } )
+} );
+
+
+
+export const directMessageReducer = createReducer( {}, ( builder ) =>
+{
+    builder.addCase( 'directChat', ( state, action ) =>
+    {
+        state.directMessageData = action.payload;
+    } )
+} );

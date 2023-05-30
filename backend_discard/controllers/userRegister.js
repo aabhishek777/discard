@@ -7,7 +7,7 @@ export const userRegister = async ( req, res ) =>
 
     try
     {
-        const { userName, email, password } = req.body;
+        const { userName, email, password, pic } = req.body;
 
         const userAlreadyExist = await User.exists( { email } );
         console.log( `userAlreadyExist :${ userAlreadyExist }` );
@@ -27,6 +27,7 @@ export const userRegister = async ( req, res ) =>
             userName,
             email,
             password: hashPassword,
+            pic
         } );
 
         //saving to db
@@ -41,7 +42,7 @@ export const userRegister = async ( req, res ) =>
 
         },
             process.env.JWT_SECRET_KEY_JSON_WEB_TOKEN,
-            { expiresIn: '48h' }
+            { expiresIn: '48d' }
         );
 
 
@@ -142,6 +143,6 @@ export const loadUser = async ( req, res ) =>
 
 
 
-//friend controllers
 
 
+//get all user controller

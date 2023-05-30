@@ -8,6 +8,8 @@ import { createServer } from 'http';
 
 import authRouter from './routers/router.js';
 import friendInvitationRouter from './routers/friends.js';
+import userRouter from './routers/userRoutes.js'
+import chatRouter from './routers/chatRoutes.js'
 
 import { getSocketConnection } from './socketIOServer.js';
 import connectDb from './config/db.js'
@@ -54,9 +56,11 @@ app.use( morgan( 'tiny' ) );
 
 
 
-
+//api endpoints 
 app.use( '/api/auth', authRouter );
 app.use( 'api/friend-invitation', friendInvitationRouter );
+app.use( '/api/user', userRouter );
+app.use( '/api/chat', chatRouter );
 
 
 
@@ -73,4 +77,4 @@ server.listen( port, () =>
 
     console.log( `app is running on ${ port }` );
 
-} )
+} );

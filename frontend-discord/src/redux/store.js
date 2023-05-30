@@ -1,14 +1,26 @@
 
 
 import { configureStore } from '@reduxjs/toolkit'
-import { userLoadResponseData, userLoginResponseData, userReducer, userRegisterResponseData } from './reducer'
+import
+{
+    directMessageReducer,
+    groupMessageReducer,
+    userLoadResponseData,
+    userLoginResponseData,
+    userReducer,
+    userRegisterResponseData
+}
+    from './reducer'
 
 const store = configureStore( {
     reducer: {
         userstate: userReducer,
         registerResponseData: userRegisterResponseData,
         loginResponseData: userLoginResponseData,
-        loadResponseData: userLoadResponseData
+        loadResponseData: userLoadResponseData,
+        groupMessageData: groupMessageReducer,
+        directMessageData: directMessageReducer,
+
     }
 } );
 

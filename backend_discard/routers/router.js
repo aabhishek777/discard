@@ -33,7 +33,7 @@ router.post( '/login', loginUser );
 
 router.post( '/load', isAuthenticated, loadUser );
 
-
+router.get( '/', )
 
 
 

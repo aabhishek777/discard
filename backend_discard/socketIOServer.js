@@ -42,7 +42,7 @@ export const getSocketConnection = ( server ) =>
 
         newConnectionHandeller( socket, io );
 
-
+        //handelling user disconnection
         socket.on( 'disconnect', () =>
         {
             console.log( `user diconnected ${ socket.id }` );
