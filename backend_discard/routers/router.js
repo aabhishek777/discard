@@ -17,11 +17,6 @@ import { isAuthenticated } from '../middlewares/isAuthenticated.js';
 
 
 const router = Router();
-
-
-
-
-
 router.post( '/register', userRegister );
 
 

@@ -7,13 +7,17 @@ export const userRegister = async ( req, res ) =>
 
     try
     {
+
+        console.log( req.body )
         const { userName, email, password, pic } = req.body;
+        console.log( "userNmwe:" + userName )
+
 
         const userAlreadyExist = await User.exists( { email } );
         console.log( `userAlreadyExist :${ userAlreadyExist }` );
         if ( userAlreadyExist )
         {
-            res.status( 409 ).json( { msg: "email already exists" } )
+            res.status( 400 ).json( { msg: "email already exists" } )
             return;
         }
 
@@ -27,27 +31,39 @@ export const userRegister = async ( req, res ) =>
             userName,
             email,
             password: hashPassword,
-            pic
+            pic,
         } );
 
-        //saving to db
-        const userData = await user.save();
-        console.log( userData );
+        console.log( user );
+        if ( user )
+        {
+            await user.save();
+            //generating jwt token and sending to user
+            const token = await jwt.sign( {
+                _id: user._id,
+                userName: user.userName,
+                email: user.email,
 
+            },
+                process.env.JWT_SECRET_KEY_JSON_WEB_TOKEN,
+                { expiresIn: '48d' }
+            );
 
-        //generating jwt token and sending to user
-        const token = await jwt.sign( {
-            userName: userData.userName,
-            email: userData.email,
-
-        },
-            process.env.JWT_SECRET_KEY_JSON_WEB_TOKEN,
-            { expiresIn: '48d' }
-        );
-
-
-        res.status( 200 ).json( { msg: "registered success", token, data: userData } );
-
+            res.status( 201 ).json(
+                {
+                    _id: user._id,
+                    userName: user.userName,
+                    email: user.email,
+                    pic: user.pic,
+                    token: token
+                }
+            )
+        }
+        else
+        {
+            res.status( 400 ).json( { msg: "error" } );
+            throw new Error( "user not found" )
+        }
 
 
     } catch ( error )
@@ -77,9 +93,11 @@ export const loginUser = async ( req, res ) =>
 {
     try
     {
-        const { UserName, password } = req.body;
+        const { userName, password } = req.body;
 
-        const isNameExist = await User.exists( { UserName } );
+        console.log( userName )
+
+        const isNameExist = await User.exists( { userName } );
 
         if ( !isNameExist )
         {
@@ -87,7 +105,7 @@ export const loginUser = async ( req, res ) =>
             res.status( 409 ).json( { msg: "Username not exist" } );
             return;
         }
-        const userData = await User.findOne( { UserName } );
+        const userData = await User.findOne( { userName } );
 
 
         const isPasswordMatched = await bcrypt.compare( password, userData.password );
@@ -101,6 +119,7 @@ export const loginUser = async ( req, res ) =>
         }
         //generating jwt token and sending it
         const token = await jwt.sign( {
+            _id: userData._id,
             userName: userData.userName,
             email: userData.email,
 

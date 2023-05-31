@@ -5,8 +5,10 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import ErrorMaterialUI from './components/ErrorMaterialUI'
 
-import FriendsInvitation from './pages/FriendsInvitation'
-import ChatPage from './pages/ChatPage'
+// import FriendsInvitation from './pages/FriendsInvitation'
+// import ChatPage from './pages/ChatPage'
+// import { Home } from '@mui/icons-material'
+import Home from './pages copy/Home'
 
 const RouteComponents = () =>
 {
@@ -17,7 +19,10 @@ const RouteComponents = () =>
       <Route path='/register' element={ <Register /> } />
       <Route path='/error' element={ <ErrorMaterialUI /> } />
       <Route path='/' element={ <Dashboard /> } />
-      <Route path='/test' element={ <ChatPage /> } />
+      {/* <Route path='/test' element={ <ChatPage /> } /> */ }
+
+      <Route path='/db' element={ <Home /> } />
+
     </Routes>
 
   )
