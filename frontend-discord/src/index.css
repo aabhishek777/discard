@@ -2,7 +2,9 @@ body {
   font-size: 62.5%;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Geologica", sans-serif;
+  font-family: "Lato", sans-serif;
+  color: white;
 }
 .container {
   display: flex;
@@ -50,9 +52,6 @@ body {
   cursor: pointer;
 }
 
-/* nav
- */
-
 header {
   background-color: #7289da;
   padding: 20px;
@@ -91,8 +90,6 @@ nav ul li a:hover {
   font-size: 0.8rem;
   color: #fff;
 }
-
-/* register */
 
 .container {
   display: flex;
@@ -151,7 +148,7 @@ p {
   text-align: center;
   margin-top: 20px;
   font-size: 14px;
-  color: #333;
+  color: white;
 }
 
 a {
@@ -169,298 +166,13 @@ a:hover {
   text-transform: uppercase;
 }
 
-/* dashboard
- */
-
-/* .dashboard__container{
-  display: flex;
-  font-size: 2rem;
-
- }
-
- .dashboard__main-content{
-  display: flex;
-  flex-direction:row;
-  width: 100%;
-  border: 2px solid black;
- }
-
- .dashboard__active-now-aria{
-  border: 2px solid red;
-  height: 100vh;
-  width: 25%;
- }
-
- .dashboard__chat-aria{
-  border: 2px solid red;
-  height: 100vh;
-  width: 55%;
- }
-
- .dashboard__friends-aria{
-  border: 2px solid red;
-  height: 100vh;
-  width: 20%;
- } */
-
-/* .dashboard__container {
-  display: flex;
-  font-size: 1rem;
-  width: 100%;
-  height: 100vh;
-  border: 2px solid black; */
-/* }
-.dashboard__sidebar {
-  background-color: #252424;
-  width: 3rem; */
-/* border: #db0000;
-  border-bottom: 3px solid #db0000; */
-/* }
-.dashboard__friends {
-  width: 20%;
-  background-color: #313131;
-} */
-/* .dashboard__active{
-  background-color: #333;
- } */
-/* .dashboard__nav-chat-active {
-  background-color: #424242;
-  /* border: 5px solid red; */
-/* width: 72%;
-  display: flex; */
-/* flex-direction: column; */
-/* } */
-*/
-
-/* .dashboard__active-chat {
-  display: flex;
-  flex-direction: row;
-  /* border:2px solid #000; */
-  /* height: 95%; */
-  /* justify-content: space-between; */
-
-  /* background-color:aqua; */
-/* }
-.dashboard__nav {
-  height: 1.8rem;
-  border-bottom: 0.5px solid rgb(94, 93, 93); */
-  /* background-color: #2d49ab; */
-/* } */ */
-
-/* ************************************************************************************************************ */
-/* sidebar */
-
-/* .home__sidebar-chat {
-  display: flex;
-  /* background-color: red; */
-/*
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  flex: 0.25;
-  height: 100vh;
-  background-color: #2f3135;
-}
-
-.sidebar__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background-color: #2f3135;
-  color: white;
-  border-bottom: 3px solid #26282c;
-}
-
-.sidebar__channels {
-  flex: 1;
-}
-
-.sidebar__addChannel {
-  cursor: pointer;
-}
-
-.sidebar__addChannel:hover {
-  color: white;
-}
-
-.sidebar__channelsHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background-color: #2f3135;
-  color: gray;
-}
-
-.sidebar__header {
-  display: flex;
-  align-items: center;
-}
-
-.sidebar__voice {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: gray;
-  background-color: #2f3135;
-  padding: 10px;
-  border: 1px solid gray;
-}
-
-.sidebar__voiceInfo {
-  flex: 1;
-  padding: 10px;
-}
-
-.sidebar__voiceIcon {
-  color: #4fb185;
-}
-
-.sidebar__voiceInfo > h3 {
-  color: #4fb185;
-}
-
-.sidebar__voiceInfo > p {
-  font-size: smaller;
-}
-
-.sidebar__voiceIcons > .MuiSvgIcon-root {
-  padding: 10px;
-}
-
-
-.chatHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: gray;
-  padding: 10px;
-}
-
-.chatHeader__hash {
-  color: gray;
-  font-size: 30px;
-  padding: 10px;
-}
-
-.chatHeader__left > h3 {
-  display: flex;
-  align-items: center;
-  color: white;
-}
-
-.chatHeader__right {
-  display: flex;
-  align-items: center;
-  flex: 0.5;
-
-  justify-content: space-between;
-}
-
-.chatHeader__right > .MuiSvgIcon-root {
-  padding: 5px;
-  cursor: pointer;
-}
-
-.chatHeader__right > .MuiSvgIcon-root:hover {
-  color: white;
-}
-
-.chatHeader__search {
-  display: flex;
-  align-items: center;
-  color: gray;
-  background-color: #2f3135;
-  border-radius: 3px;
-  padding: 3px;
-}
-
-.chatHeader__search > input {
-  background: transparent;
-  outline-width: 0;
-  color: white;
-  border: none;
-}
-
-.chat {
-  display: flex;
-  flex-direction: column;
-  flex: 0.75;
-  background-color: #363a3f;
-  height: 100vh;
-}
-
-.chat {
-  display: flex;
-  flex-direction: column;
-  flex: 0.75;
-  background-color: #363a3f;
-  height: 100vh;
-}
-
-.chat__messages {
-  flex: 1;
-  overflow: scroll;
-}
-
-.chat__messages::-webkit-scrollbar {
-  display: none;
-}
-
-.chat__messages {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.chat__input {
-  color: lightgray;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px;
-  border-radius: 5px;
-  margin: 20px;
-  border-top: 1px solid gray;
-  background-color: #474b53;
-}
-
-.chat__input > form > input {
-  padding: 15px;
-  background: transparent;
-  border: none;
-  width: 100%;
-  outline-width: 0;
-  color: white;
-  font-size: large;
-}
-
-.chat__input > form {
-  flex: 1;
-}
-
-.chat__inputButton {
-  display: none;
-}
-
-.chat__inputIcons > .MuiSvgIcon-root {
-  padding: 5px;
-} */
-
 body {
   top: 0;
   bottom: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
 
 .main {
@@ -683,6 +395,17 @@ code {
   flex: 1;
 }
 
+.sidebarchannel {
+  border: 2px solid rgb(42, 40, 40);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+.sidebarchannel__pic {
+  height: inherit;
+  width: 40px;
+  border-radius: 50%;
+}
 .sidebar_addchannels {
   cursor: pointer;
 }
@@ -782,7 +505,10 @@ code {
 }
 
 .message_info {
-  margin-left: 20px;
+  margin-left: 10pxpx;
+
+  /* flex-direction: row;
+  justify-content: flex-start; */
 }
 
 .message_timestamp {
@@ -875,7 +601,7 @@ code {
 }
 
 .chat__inputButton {
-  display: none;
+  display: inline;
 }
 
 .chat__inputButton > MuiSvgIcon-root {

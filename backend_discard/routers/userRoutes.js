@@ -6,7 +6,7 @@ import { getAllUsers } from "../controllers/userController.js";
 const router = Router();
 
 
-router.get( '/', isAuthenticated, getAllUsers );
+router.post( '/', isAuthenticated, getAllUsers );
 
 
 export default router;

@@ -12,11 +12,12 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const getLoadUserDetails = async () => {
     const token = localStorage.getItem("token");
+
     if (!token) {
       console.log("tocken is undefined");
     } else {
       const userInfo = await loadUser(token);
-      console.log(userInfo?.data?.data);
+      console.log(userInfo);
       getSocketConnection(token);
       console.log(token);
 

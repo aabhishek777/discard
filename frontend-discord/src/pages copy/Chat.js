@@ -14,13 +14,24 @@ import Messages from "./Messages";
 // import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { fetchChats } from "../api/userApi";
+import { useSelector } from "react-redux";
 // import db from "./firebase";
 // import firebase from "firebase";
 
 function Chat ()
 {
+
+  const user = useSelector( ( state ) => state.loadResponseData );
+
+  console.log( user?.userLoadResponseData?._id );
+  const senderId = user?.userLoadResponseData?._id
+  const recieverId = localStorage.getItem( 'id' );
+
   // const [ messages, setMessages ] = useState( [] );
-  // const [ input, setInput ] = useState( [] );
+  const [ input, setInput ] = useState( '' );
+
+  console.log( input, senderId, recieverId );
+  console.log( input );
   //   const channelName = useSelector( selectChannelName );
   //   const user = useSelector( selectUser );
   //   const channelId = useSelector( selectChannelId );
@@ -42,22 +53,30 @@ function Chat ()
   useEffect( async () =>
   {
     const token = localStorage.getItem( 'token' );
-    const data = await fetchChats( token )
-    console.log( data )
+    console.log( token );
+    // const data = await fetchChats( token )
+    // console.log( data )
   }, [] )
 
   const sendMessage = ( e ) =>
   {
     e.preventDefault();
+    postChat();
 
-    // db.collection( "channels" ).doc( channelId ).collection( "messages" ).add( {
-    //   message: input,
-    //   user: user,
-    //   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    // } );
+    // postChat( senderId, recieverId, content );
 
-    // setInput( " " );
   };
+
+
+  const postChat = () =>
+  {
+    const recieverId = localStorage.getItem( 'id' );
+    if ( !recieverId ) console.log( "error finding  reciever id" );
+    console.log( input, senderId, recieverId );
+
+
+
+  }
   const messages = [ {
     timestamp: "timrstamp",
     message: 'mefshello',
@@ -114,8 +133,8 @@ function Chat ()
                 ? `Message #${ channelName }`
                 : `Select Channel to Message`
             }
-          // value={ input }
-          // onChange={ ( e ) => setInput( e.target.value ) }
+            value={ input }
+            onChange={ ( e ) => setInput( e.target.value ) }
           // disabled={ !channelId }
           />
 

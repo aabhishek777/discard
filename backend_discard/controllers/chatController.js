@@ -64,13 +64,11 @@ export const acessChat = async ( req, res ) =>
 
 export const fetchChats = async ( req, res ) =>
 {
-    console.log( "userV===================================> : ", req.headers );
+
     try
     {
-        const user = req;
-        console.log( 'req is:' + req.headers );
         const result = await Chat.find( { chatName: "chat name db" } );
-        console.log( "result", result );
+
         res.status( 200 ).json( { data: result, msg: "msg" } );
     } catch ( error )
     {

@@ -15,6 +15,7 @@ import HeadsetIcon from '@mui/icons-material/Headset';
 
 // import HeadsetIcon from "@mui/icons-material/Headset";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
 // import { selectUser } from "./features/userSlice";
 // import db, { auth } from "./firebase";
@@ -22,47 +23,18 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 function Sidebar ()
 {
-  // const user = useSelector(selectUser);
-  // const [channels, setChannels] = useState([]);
 
-  // useEffect(() => {
-  //   db.collection("channels").onSnapshot((snapshot) => {
-  //     setChannels(
-  //       snapshot.docs.map((doc) => ({
-  //         id: doc.id,
-  //         channel: doc.data(),
-  //       }))
-  //     );
-  //   });
-  // }, []);
+  const { userLoadResponseData } = useSelector( state => state.loadResponseData );
 
 
-  const channels = [ {
+  const { usres } = useSelector( state => state.users );
 
-    id: "1",
-    channel:
-      { channelName: "test Chaennel1" }
+  console.log( 'cheannel' );
 
 
-  },
-  {
-    id: "2",
-    channel:
-      { channelName: "test Chaenne2" }
+  const users = usres;
 
-  },
-  {
-    id: "3",
-    channel:
-      { channelName: "test Chaenne3" }
 
-  },
-  ]
-
-  const user = [ {
-    photo: "phoro", displayName: 'diplay name'
-  },
-  ]
   const handleAddChannel = () =>
   {
     const channelName = prompt( "Enter the Channel Name" );
@@ -90,11 +62,12 @@ function Sidebar ()
           <AddIcon onClick={ handleAddChannel } className="sidebar_addchannels" />
         </div>
         <div className="sidebar_channelslist">
-          { channels.map( ( { id, channel } ) => (
+          { users?.map( ( user ) => (
             <Sidebarchannel
-              key={ id }
-              id={ id }
-              channelName={ channel.channelName }
+              key={ user?._id }
+              id={ user?._id }
+              userName={ user?.userName }
+              pic={ user?.pic }
             />
           ) ) }
         </div>
@@ -112,11 +85,11 @@ function Sidebar ()
       </div>
 
       <div className="sidebar__profile">
-        <Avatar className="sidebar__avatarIcon" src={ user.photo } />
+        <Avatar className="sidebar__avatarIcon" src={ userLoadResponseData?.pic } />
         <span className="sidebar__hoverText">Click to Logout</span>
         <div className="sidebar__profileinfo">
-          <h3>{ user.displayName }</h3>
-          <p>{ " user.uid.substring( 0, 5 ) " }</p>
+          <h3>{ userLoadResponseData?.userName }</h3>
+
         </div>
         <div className="sidebar__profileIcons">
           <MicIcon />

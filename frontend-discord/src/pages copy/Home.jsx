@@ -4,6 +4,7 @@ import Chat from "./Chat";
 import { useDispatch } from "react-redux";
 import { loadUser } from "../redux/action";
 import { getSocketConnection } from "../socketIO/socketConnection";
+import { fetchChats, fetchUsers } from "../api/userApi";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,8 +27,21 @@ const App = () => {
     }
   };
 
+  const getAllUsers = async () => {
+    const token = localStorage.getItem("token");
+    console.log("getAllUsers" + token);
+    const data = await fetchUsers(token);
+    dispatch({
+      type: "users",
+      payload: data?.data.data,
+    });
+
+    console.log(data?.data.data);
+  };
+
   useEffect(() => {
     getLoadUserDetails();
+    getAllUsers();
   }, [getLoadUserDetails]);
   return (
     <div className="main">

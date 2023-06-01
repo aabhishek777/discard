@@ -6,7 +6,7 @@ export const isAuthenticated = async ( req, res, next ) =>
     try
     {
         const token = req.headers.token;
-        // console.log( token )
+        console.log( 'token from req' + token )
         if ( !token )
         {
             return res.status( 400 ).json( { msg: "Invalid Token" } )
@@ -18,6 +18,8 @@ export const isAuthenticated = async ( req, res, next ) =>
 
         }
         req.userName = user.userName;
+        req._id = user._id;
+        console.log( req._id );
         req.token = token;
         next();
 

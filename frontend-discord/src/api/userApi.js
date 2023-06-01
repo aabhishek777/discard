@@ -17,3 +17,19 @@ export const fetchChats = async ( token ) =>
 
     }
 }
+
+//this is the post request
+export const fetchUsers = async ( token ) =>
+{
+    try
+    {
+        return await axios.post( "http://localhost:9999/api/user", {}, {
+            headers: {
+                token: token
+            }
+        } )
+    } catch ( error )
+    {
+        console.log( error );
+    }
+}

@@ -5,6 +5,9 @@ import { verifySocketToken } from './middlewares/isAuthSocket.js';
 import { newConnectionHandeller, removeUserHandeller } from './socketIo/newConnectionHandeller.js';
 import { removeConnectedUser } from './socketIo/socketIOStore.js';
 
+import jwt from 'jsonwebtoken'
+import User from './models/UserModel.js'
+
 
 
 
@@ -30,7 +33,7 @@ export const getSocketConnection = ( server ) =>
 
     //creating socket instances or groups lke api
 
-    io.on( 'connection', ( socket ) =>
+    io.on( 'connection', async ( socket ) =>
     {
 
         //conbnection status
@@ -41,13 +44,28 @@ export const getSocketConnection = ( server ) =>
         // new connection handellers
 
         newConnectionHandeller( socket, io );
+        //updating  onine status 
+
+        const { _id } = await jwt.verify( socket.handshake.auth.token, process.env.JWT_SECRET_KEY_JSON_WEB_TOKEN );
+        console.log( _id );
+
+        await User.findByIdAndUpdate( { _id: _id }, { $set: { isOnline: true } } );
+
+
+
+
 
         //handelling user disconnection
-        socket.on( 'disconnect', () =>
+        socket.on( 'disconnect', async () =>
         {
             console.log( `user diconnected ${ socket.id }` );
-            // removeConnectedUser( socket.id )
-            removeUserHandeller( socket.id )
+
+            removeUserHandeller( socket.id );
+
+            const { _id } = await jwt.verify( socket.handshake.auth.token, process.env.JWT_SECRET_KEY_JSON_WEB_TOKEN );
+
+
+            await User.findByIdAndUpdate( { _id: _id }, { $set: { isOnline: false } } );
         } )
 
     } );

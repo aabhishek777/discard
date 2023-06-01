@@ -24,8 +24,8 @@ export const userRegister = async ( req, res ) =>
         const hashPassword = await bcrypt.hash( password, 10 );
         console.log( hashPassword );
 
-        const matched = await bcrypt.compare( password, hashPassword );
-        console.log( `matched: ${ matched }` );
+        // const matched = await bcrypt.compare( password, hashPassword );
+        // console.log( `matched: ${ matched }` );
 
         const user = new User( {
             userName,
@@ -46,8 +46,9 @@ export const userRegister = async ( req, res ) =>
 
             },
                 process.env.JWT_SECRET_KEY_JSON_WEB_TOKEN,
-                { expiresIn: '48d' }
+                { expiresIn: '48h' }
             );
+            console.log( `jwt token is ++++++++++++>>>>` + token );
 
             res.status( 201 ).json(
                 {
@@ -93,11 +94,11 @@ export const loginUser = async ( req, res ) =>
 {
     try
     {
-        const { userName, password } = req.body;
+        const { password, email } = req.body;
 
-        console.log( userName )
+        console.log( email )
 
-        const isNameExist = await User.exists( { userName } );
+        const isNameExist = await User.exists( { email } );
 
         if ( !isNameExist )
         {
@@ -105,7 +106,7 @@ export const loginUser = async ( req, res ) =>
             res.status( 409 ).json( { msg: "Username not exist" } );
             return;
         }
-        const userData = await User.findOne( { userName } );
+        const userData = await User.findOne( { email } );
 
 
         const isPasswordMatched = await bcrypt.compare( password, userData.password );
@@ -123,12 +124,9 @@ export const loginUser = async ( req, res ) =>
             userName: userData.userName,
             email: userData.email,
 
-
-
-
         },
             process.env.JWT_SECRET_KEY_JSON_WEB_TOKEN,
-            { expiresIn: '48h' }
+            { expiresIn: '48d' }
         );
         console.log( token );
 

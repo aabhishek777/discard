@@ -56,3 +56,21 @@ export const directMessageReducer = createReducer( {}, ( builder ) =>
         state.directMessageData = action.payload;
     } )
 } );
+
+
+export const usersReducer = createReducer( {}, ( builder ) =>
+{
+    builder.addCase( 'users', ( state, action ) =>
+    {
+        state.usres = action.payload;
+    } )
+} );
+
+
+export const currentRecieverIdReducer = createReducer( {}, ( builder ) =>
+{
+    builder.addCase( 'id', ( state, action ) =>
+    {
+        state.currentRecieverId = action.payload;
+    } )
+} );

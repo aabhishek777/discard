@@ -24,15 +24,15 @@ const Register = () => {
 
     console.log(registerData);
     const apiData = await registerApi(registerData);
-    console.log(apiData);
+    console.log(apiData?.data);
 
-    // dispatch({
-    //   type: "register",
-    //   payload: apiData?.data,
-    // });
-    // localStorage.setItem("token", apiData?.token);
+    dispatch({
+      type: "register",
+      payload: apiData?.data,
+    });
+    localStorage.setItem("token", apiData?.data.token);
 
-    // if (apiData?.data.msg === "registered success") navigate("/");
+    navigate("/");
   };
 
   return (

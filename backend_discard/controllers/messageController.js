@@ -39,3 +39,31 @@ export const sendMessages = async ( req, res ) =>
     }
 
 }
+
+
+
+
+export const saveChat = async ( req, res ) =>
+{
+
+    const { senderId, recieverId, content } = req.body;
+
+    try
+    {
+
+        const chat = new Chat( {
+            senderId,
+            recieverId,
+            content
+        } );
+
+        await chat.save();
+
+        res.status( 200 ).json( { msg: "success", chat: chat } )
+
+    } catch ( error )
+    {
+        res.status( 400 ).json( { msg: error } )
+
+    }
+}

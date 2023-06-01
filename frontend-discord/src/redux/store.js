@@ -3,12 +3,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import
 {
+    currentRecieverIdReducer,
     directMessageReducer,
     groupMessageReducer,
     userLoadResponseData,
     userLoginResponseData,
     userReducer,
-    userRegisterResponseData
+    userRegisterResponseData,
+    usersReducer
 }
     from './reducer'
 
@@ -20,6 +22,10 @@ const store = configureStore( {
         loadResponseData: userLoadResponseData,
         groupMessageData: groupMessageReducer,
         directMessageData: directMessageReducer,
+
+        users: usersReducer,
+
+        currentRecieverId: currentRecieverIdReducer,
 
     }
 } );
